@@ -36,6 +36,10 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Newtonsoft.Json, Version=6.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\Imports\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
   </ItemGroup>
   <Choose>
@@ -51,8 +55,10 @@
     </Otherwise>
   </Choose>
   <ItemGroup>
-    <Compile Include="JSONSerializerTests.cs" />
+    <Compile Include="DeSerializeTest.cs" />
+    <Compile Include="FunctionCallDetails.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="SerializeTest.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MiniJson\MiniJson.csproj">

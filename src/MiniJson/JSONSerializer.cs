@@ -11,6 +11,15 @@ namespace MiniJson
     /// </summary>
     public class JSONSerializer
     {
+        #region "常量"
+
+        /// <summary>
+        /// 附加到对象序列化的字符串中，对象类型对应的name
+        /// </summary>
+        internal const String ObjectTypeKey = "_$$_MiniJson_ObjectType_$$_";
+
+        #endregion
+
         #region "字段"
 
         protected static Dictionary<Type, PropertyInfo[]> typeProperties = new Dictionary<Type, PropertyInfo[]>();//类型属性缓冲区

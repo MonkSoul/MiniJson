@@ -92,7 +92,8 @@ namespace MiniJson.Tests
             JSONSerializer json = new JSONSerializer();
             String s1 = json.Serialize(obj);
             String s2 = JsonConvert.SerializeObject(obj);
-            Assert.AreEqual<Int32>(s1.Length, s2.Length);
+            //由于本类库增加了_$$_MiniJson_ObjectType_$$_字段，所以序列化出来的字符串长度一定是不同的了
+            //Assert.AreEqual<Int32>(s1.Length, s2.Length);
             //返序列化回来的校验（断言）
             TestObj deSerializeObj1 = json.DeSerialize<TestObj>(s1);
             Assert.AreEqual<String>(deSerializeObj1.CC, obj.CC);
@@ -108,7 +109,8 @@ namespace MiniJson.Tests
             JSONSerializer json = new JSONSerializer();
             String s1 = json.Serialize(obj);
             String s2 = JsonConvert.SerializeObject(obj);
-            Assert.AreEqual<Int32>(s1.Length, s2.Length);
+            //由于本类库增加了_$$_MiniJson_ObjectType_$$_字段，所以序列化出来的字符串长度一定是不同的了
+            //Assert.AreEqual<Int32>(s1.Length, s2.Length);
             //返序列化回来的校验（断言）
             TestObj deSerializeObj1 = json.DeSerialize<TestObj>(s1);
             Assert.AreEqual<String>(deSerializeObj1.CC, obj.CC);
@@ -125,7 +127,8 @@ namespace MiniJson.Tests
             JSONSerializer json = new JSONSerializer();
             String s1 = json.Serialize(obj);
             String s2 = JsonConvert.SerializeObject(obj);
-            Assert.AreEqual<Int32>(s1.Length, s2.Length);
+            //由于本类库增加了_$$_MiniJson_ObjectType_$$_字段，所以序列化出来的字符串长度一定是不同的了
+            //Assert.AreEqual<Int32>(s1.Length, s2.Length);
             //返序列化回来的校验（断言）
             TestObj deSerializeObj1 = json.DeSerialize<TestObj>(s1);
             Assert.AreEqual<String>(deSerializeObj1.CC, obj.CC);
@@ -146,7 +149,8 @@ namespace MiniJson.Tests
             JSONSerializer json = new JSONSerializer();
             String s1 = json.Serialize(obj);
             String s2 = JsonConvert.SerializeObject(obj);
-            Assert.AreEqual<Int32>(s1.Length, s2.Length);
+            //由于本类库增加了_$$_MiniJson_ObjectType_$$_字段，所以序列化出来的字符串长度一定是不同的了
+            //Assert.AreEqual<Int32>(s1.Length, s2.Length);
             //返序列化回来的校验（断言）
             TestObj deSerializeObj1 = json.DeSerialize<TestObj>(s1);
             Assert.AreEqual<Int32>(deSerializeObj1.AA.Count, 1);
@@ -167,7 +171,8 @@ namespace MiniJson.Tests
             JSONSerializer json = new JSONSerializer();
             String s1 = json.Serialize(obj);
             String s2 = JsonConvert.SerializeObject(obj);
-            Assert.AreEqual<Int32>(s1.Length, s2.Length);
+            //由于本类库增加了_$$_MiniJson_ObjectType_$$_字段，所以序列化出来的字符串长度一定是不同的了
+            //Assert.AreEqual<Int32>(s1.Length, s2.Length);
             //返序列化回来的校验（断言）
             TestObj deSerializeObj1 = json.DeSerialize<TestObj>(s1);
             Assert.AreEqual<Int32>(deSerializeObj1.BB.Count, 1);
@@ -188,7 +193,8 @@ namespace MiniJson.Tests
             JSONSerializer json = new JSONSerializer();
             String s1 = json.Serialize(obj);
             String s2 = JsonConvert.SerializeObject(obj);
-            Assert.AreEqual<Int32>(s1.Length, s2.Length);
+            //由于本类库增加了_$$_MiniJson_ObjectType_$$_字段，所以序列化出来的字符串长度一定是不同的了
+            //Assert.AreEqual<Int32>(s1.Length, s2.Length);
             //返序列化回来的校验（断言）
             TestObj deSerializeObj1 = json.DeSerialize<TestObj>(s1);
             Assert.AreEqual<Int32>(deSerializeObj1.TestArray.Length, 2);
@@ -208,7 +214,8 @@ namespace MiniJson.Tests
             JSONSerializer json = new JSONSerializer();
             String s1 = json.Serialize(obj);
             String s2 = JsonConvert.SerializeObject(obj);
-            Assert.AreEqual<Int32>(s1.Length, s2.Length);
+            //由于本类库增加了_$$_MiniJson_ObjectType_$$_字段，所以序列化出来的字符串长度一定是不同的了
+            //Assert.AreEqual<Int32>(s1.Length, s2.Length);
             //返序列化回来的校验（断言）
             TestObj deSerializeObj1 = json.DeSerialize<TestObj>(s1);
             Assert.AreEqual<Int32>(deSerializeObj1.TestArray.Length, 2);
@@ -234,7 +241,8 @@ namespace MiniJson.Tests
             JSONSerializer json = new JSONSerializer();
             String s1 = json.Serialize(obj);
             String s2 = JsonConvert.SerializeObject(obj);
-            Assert.AreEqual<Int32>(s1.Length, s2.Length);
+            //由于本类库增加了_$$_MiniJson_ObjectType_$$_字段，所以序列化出来的字符串长度一定是不同的了
+            //Assert.AreEqual<Int32>(s1.Length, s2.Length);
             //返序列化回来的校验（断言）
             TestObj deSerializeObj1 = json.DeSerialize<TestObj>(s1);
             Assert.AreEqual<Int32>(deSerializeObj1.DD.Count, 2);

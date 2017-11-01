@@ -58,7 +58,7 @@ namespace MiniJson
                 catch (Exception ex)
                 {
                     throw ex;
-                    //Log.Action.LogError("error:", ex);
+                    //MyLog.MakeLog(ex);
                 }
                 this.Reset();//重置对象值
                 this.setting = setting_backup;
@@ -145,6 +145,12 @@ namespace MiniJson
                     k++;
                 }
             }
+            //最终再加上对象的完整类型名，以供反序列化使用（反序列化的时候会根据这个类型名去创建对象实例然后执行反序列化）
+            Type objType = obj.GetType();
+            String objectTypeStr = String.Format("{0},{1}", objType.FullName, objType.Assembly.FullName);
+            //对字符串进行序列化
+            objectTypeStr = SerializeValue(null, objectTypeStr);
+            tempSB.AppendFormat("{0}\"{1}\":{2}", k > 0 ? "," : "", JSONSerializer.ObjectTypeKey, objectTypeStr);
             return tempSB.ToString();
         }
 
@@ -300,7 +306,7 @@ namespace MiniJson
                     catch (Exception ex)
                     {
                         throw ex;
-                        //Log.Project.LogError("error:", ex);
+                        //MyLog.MakeLog(ex);
                     }
                 }
             }

@@ -56,7 +56,7 @@ namespace MiniJson
                 catch (Exception ex)
                 {
                     throw ex;
-                    //Log.Project.LogError("error:", ex);
+                    //MyLog.MakeLog(ex);
                 }
                 this.setting = setting_backup;
                 return instance;
@@ -149,6 +149,10 @@ namespace MiniJson
             else if (targetType == typeof(SByte))
             {
                 return Convert.ToSByte(valueStr);
+            }
+            else if (targetType == typeof(Object) && valueStr == "null")
+            {
+                return null;
             }
             else
             {
@@ -428,6 +432,36 @@ namespace MiniJson
         }
 
         /// <summary>
+        /// 创建对象实例
+        /// </summary>
+        /// <param name="type"></param>
+        /// <returns></returns>
+        protected Object CreateInstance(Type type)
+        {
+            Object instance = null;
+            try
+            {
+                instance = type.Assembly.CreateInstance(type.FullName);
+            }
+            catch (MissingMethodException ex)
+            {
+                //默认构造失败，然后尝试搜索非public的构造函数
+                if (instance == null)
+                {
+                    ConstructorInfo constructorInfo = type.GetConstructor(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic, null, new Type[0], null);
+                    if (constructorInfo == null) throw ex;
+                    instance = constructorInfo.Invoke(null);
+                }
+            }
+            catch (Exception ex)
+            {
+                throw ex;
+                //MyLog.MakeLog(ex);
+            }
+            return instance;
+        }
+
+        /// <summary>
         /// 根据大括号，序列化大括号里面的对象
         /// </summary>
         /// <param name="str"></param>
@@ -437,9 +471,30 @@ namespace MiniJson
         {
             if (String.IsNullOrEmpty(str)) return null;
             str = str.Trim();
-            str = str.Substring(1, str.Length - 2); //去掉前后的{括号字符
+            str = str.Substring(1, str.Length - 2); //去掉前后的{}括号字符
             String[] itemStr = SplitItemStr(str);
-            Object instance = type.Assembly.CreateInstance(type.FullName);
+            Object instance = null;
+            //首先判断序列化字符串数据中是否有记录对象类型，如果有的话，直接从这个数据类型创建一个对象实例，然后进行反序列化
+            for (var i = 0; i < itemStr.Length; i++)
+            {
+                String item = itemStr[i].Trim();
+                String[] nameValue = new String[] { MyString.Left(item, ":"), MyString.Right(item, ":") };
+                //去掉双引号
+                nameValue[0] = nameValue[0].Trim().Substring(1, nameValue[0].Length - 2);
+                //nameValue[1] = nameValue[1].Trim().Substring(1, nameValue[1].Length - 2);
+                if (nameValue[0] == JSONSerializer.ObjectTypeKey)
+                {
+                    //去掉值的双引号（这个值一定是字符串的）
+                    nameValue[1] = nameValue[1].Trim().Substring(1, nameValue[1].Length - 2);
+                    String[] typeAndAssembly = new String[] { MyString.Left(nameValue[1], ","), MyString.Right(nameValue[1], ",") };
+                    Assembly ass = Assembly.Load(typeAndAssembly[1]);
+                    Type t = ass.GetType(typeAndAssembly[0]);
+                    instance = CreateInstance(t);
+                }
+            }
+            if (instance == null) instance = CreateInstance(type);
+            //Object instance = type.Assembly.CreateInstance(type.FullName);
+            if (instance == null) throw new Exception(String.Format("create instance of type[{0}] error", type.FullName));
             if (itemStr != null && itemStr.Length > 0)
             {
                 Dictionary<String, MemberInfo> memberInfoDic = jsonSerializeHelper.GetMemberInfoDic(instance);
